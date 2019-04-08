@@ -4,7 +4,7 @@ const app = express();
 // Create route handler
 app.get('/', (req, res) => {
     res.send({
-        hi: 'there'
+        bye: 'buddy'
     });
 });
 
