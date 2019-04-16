@@ -1,8 +1,9 @@
 const express = require('express'); // Backend and routing module
 const mongoose = require('mongoose'); // Handle MongoDB calls
-const keys = require('./config/keys');
-require('./services/passport'); // Bring in passport configuration
+const keys = require('./config/keys'); // Secret keys and config
 require('./models/User'); // Bring in the user schema
+// ALL MODELS MUST BE BROUGHT IN BEFORE PASSPORT
+require('./services/passport'); // Bring in passport configuration
 
 // Create express object
 const app = express();
