@@ -1,8 +1,16 @@
 const express = require('express'); // Backend and routing module
+const mongoose = require('mongoose'); // Handle MongoDB calls
+const keys = require('./config/keys');
 require('./services/passport'); // Bring in passport configuration
+require('./models/User'); // Bring in the user schema
 
 // Create express object
 const app = express();
+
+// Initialize database connection
+mongoose.connect(keys.mongoURI, {
+    useNewUrlParser: true
+});
 
 // Return the authRoutes function
 // and then immediatelly call function
