@@ -1,12 +1,25 @@
 const express = require('express'); // Backend and routing module
 const mongoose = require('mongoose'); // Handle MongoDB calls
 const keys = require('./config/keys'); // Secret keys and config
+const cookieSession = require('cookie-session'); // Give us the ability to use cookies
+const passport = require('passport'); // Import passport
 require('./models/User'); // Bring in the user schema
 // ALL MODELS MUST BE BROUGHT IN BEFORE PASSPORT
 require('./services/passport'); // Bring in passport configuration
 
 // Create express object
 const app = express();
+
+app.use(
+    cookieSession({
+        // 30 days: 30d * 24h * 60m * 60s * 1000ms
+        maxAge: 30 * 24 * 60 * 60 * 1000,
+        keys: [keys.cookieKey] // Encryption key to sign cookie
+    })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Initialize database connection
 mongoose.connect(keys.mongoURI, {
