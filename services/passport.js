@@ -29,7 +29,8 @@ passport.deserializeUser((id, done) => {
 passport.use(new GoogleStrategy({
     clientID: keys.googleClientID, // Client ID from google dev console
     clientSecret: keys.googleClientSecret, // Client secret from google dev console
-    callbackURL: '/auth/google/callback'
+    callbackURL: '/auth/google/callback',
+    proxy: true // Going through the Heroku proxy, fixes redirect_uri mismatch
 }, (accessToken, refreshToken, profile, done) => {
     // Check to see if the user already is registered
     // Returns a promise not an object or user info directly
