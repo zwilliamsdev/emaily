@@ -24,6 +24,8 @@ app.use(passport.session());
 // Initialize database connection
 mongoose.connect(keys.mongoURI, {
     useNewUrlParser: true
+}).catch(error => {
+    console.log(error)
 });
 
 // Return the authRoutes function
