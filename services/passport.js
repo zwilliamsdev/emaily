@@ -41,16 +41,18 @@ passport.use(
       // Set existingUser as the resolved promise of User.findOne
       const existingUser = await User.findOne({ googleId: profile.id });
 
+      // User exists pass along their profile
       if (existingUser) {
         // callback to tell passport function is done
         // done(error, object to pass along)
-        done(null, existingUser);
-      } else {
-        const user = await new User({ googleId: profile.id }).save();
-        // callback to tell passport function is done
-        // done(error, object to pass along)
-        done(null, user);
+        return done(null, existingUser);
       }
+
+      // Write new user to database
+      const user = await new User({ googleId: profile.id }).save();
+      // callback to tell passport function is done
+      // done(error, object to pass along)
+      done(null, user);
     }
   )
 );
