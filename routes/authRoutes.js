@@ -15,7 +15,14 @@ module.exports = app => {
   // This will see the users authentication code from google
   // google strategy will now validate the request and send back
   // the users data
-  app.get("/auth/google/callback", passport.authenticate("google"));
+  app.get(
+    "/auth/google/callback",
+    passport.authenticate("google"),
+    (req, res) => {
+      // Once user is logged in send them to the dashboard
+      res.redirect("/surveys");
+    }
+  );
 
   app.get("/api/logout", (req, res) => {
     req.logout(); // Automatically attached function that kills the users cookie
